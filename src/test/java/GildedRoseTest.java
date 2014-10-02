@@ -52,4 +52,21 @@ public class GildedRoseTest {
 		assertEquals(0,goods.get(0).getQuality());	
 	}
 	
+	@Test
+	public void AgedBrieIncreaseInQualityByOneEachDay() {
+		createOneItemList(new Item("Aged Brie", 2, 0));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(1,goods.get(0).getQuality());
+	}	
+	
+	@Test
+	public void AgedBrieQualityDoesNotIncreasePastFifty() {
+		createOneItemList(new Item("Aged Brie", 2, 49));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(50,goods.get(0).getQuality());
+		GildedRose.updateQuality(goods);
+		assertEquals(50,goods.get(0).getQuality());
+	}	
 }
