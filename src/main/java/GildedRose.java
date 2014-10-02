@@ -33,55 +33,38 @@ public class GildedRose {
 					incrementQuality(item);
 					decrementSellIn(item);
 				} else if (BACKSTAGE_PASS.equals(item.getName())) {
-					updateQuality(item);
-
+					changedQualityBasedOnDaysAwayFromConcert(item);
 					decrementSellIn(item);
-
-					if (item.getSellIn() < 0) {
-						if (!BACKSTAGE_PASS.equals(item.getName())) {
-							if (item.getQuality() > 0) {
-								item.setQuality(item.getQuality() - 1);
-							}
-						} else {
-							item.setQuality(item.getQuality()
-									- item.getQuality());
-						}
+					if (sellByDatePast(item)) {
+						item.setQuality(0);
 					}
 				} else {
 					decrementQuality(item);
 					decrementSellIn(item);
-					if (item.getSellIn() < 0) {
-						if (item.getQuality() > 0) {
-							item.setQuality(item.getQuality() - 1);
-						}
+					if (sellByDatePast(item)) {
+						decrementQuality(item);
 					}
 				}
 			}
+		}
+	}
+
+	private static boolean sellByDatePast(Item item) {
+		return (item.getSellIn() < 0);
+	}
+	
+	private static void changedQualityBasedOnDaysAwayFromConcert(Item item) {
+		incrementQuality(item);
+		if (item.getSellIn() < 11) {
+			incrementQuality(item);
+		}
+		if (item.getSellIn() < 6) {
+			incrementQuality(item);
 		}
 	}
 
 	private static void decrementSellIn(Item item) {
 		item.setSellIn(item.getSellIn() - 1);
-	}
-
-	private static void updateQuality(Item item) {
-		if (regularDecrementingQualityItem(item)) {
-			decrementQuality(item);
-		} else {
-			if (item.getQuality() < 50) {
-				incrementQuality(item);
-
-				if (BACKSTAGE_PASS.equals(item.getName())) {
-					if (item.getSellIn() < 11) {
-						incrementQuality(item);
-					}
-
-					if (item.getSellIn() < 6) {
-						incrementQuality(item);
-					}
-				}
-			}
-		}
 	}
 
 	private static void decrementQuality(Item item) {
@@ -95,9 +78,4 @@ public class GildedRose {
 			item.setQuality(item.getQuality() + 1);
 		}
 	}
-
-	private static boolean regularDecrementingQualityItem(Item item) {
-		return (!BACKSTAGE_PASS.equals(item.getName()));
-	}
-
 }
