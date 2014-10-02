@@ -6,7 +6,8 @@ public class GildedRose {
 	final static String AGED_BRIE = "Aged Brie";
 	final static String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
 	final static String SULFURAS = "Sulfuras, Hand of Ragnaros";
-
+	final static Integer MAX_QUALITY = 50;
+	
 	/**
 	 * @param args
 	 */
@@ -92,7 +93,7 @@ public class GildedRose {
                 }
                 else
                 {
-                    if (item.getQuality() < 50)
+                    if (item.getQuality() < MAX_QUALITY)
                     {
                         item.setQuality(item.getQuality() + 1);
                     }
