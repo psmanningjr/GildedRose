@@ -33,39 +33,7 @@ public class GildedRose {
     {
         for (Item item : items)
         {
-            if (regularDecrementingQualityItem(item)) 
-            {
-                if (item.getQuality() > 0)
-                {
-                        item.setQuality(item.getQuality() - 1);
-                }
-            }
-            else
-            {
-                if (item.getQuality() < 50)
-                {
-                    item.setQuality(item.getQuality() + 1);
-
-                    if (BACKSTAGE_PASS.equals(item.getName()))
-                    {
-                        if (item.getSellIn() < 11)
-                        {
-                            if (item.getQuality() < 50)
-                            {
-                                item.setQuality(item.getQuality() + 1);
-                            }
-                        }
-
-                        if (item.getSellIn() < 6)
-                        {
-                            if (item.getQuality() < 50)
-                            {
-                                item.setQuality(item.getQuality() + 1);
-                            }
-                        }
-                    }
-                }
-            }
+            updateQuality(item);
 
             if (!SULFURAS.equals(item.getName()))
             {
@@ -101,6 +69,44 @@ public class GildedRose {
             }
         }
     }
+
+
+
+	private static void updateQuality(Item item) {
+		if (regularDecrementingQualityItem(item)) 
+		{
+		    if (item.getQuality() > 0)
+		    {
+		            item.setQuality(item.getQuality() - 1);
+		    }
+		}
+		else
+		{
+		    if (item.getQuality() < 50)
+		    {
+		        item.setQuality(item.getQuality() + 1);
+
+		        if (BACKSTAGE_PASS.equals(item.getName()))
+		        {
+		            if (item.getSellIn() < 11)
+		            {
+		                if (item.getQuality() < 50)
+		                {
+		                    item.setQuality(item.getQuality() + 1);
+		                }
+		            }
+
+		            if (item.getSellIn() < 6)
+		            {
+		                if (item.getQuality() < 50)
+		                {
+		                    item.setQuality(item.getQuality() + 1);
+		                }
+		            }
+		        }
+		    }
+		}
+	}
 
 
 
