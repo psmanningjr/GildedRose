@@ -17,7 +17,7 @@ public class GildedRoseTest {
 
 	@Test
 	public void WithNormalItemSellInValueDecreaseByOneEachDay() {
-		createOneItemList(new Item("Conjured Mana Cake", 3, 6));
+		createOneItemList(new Item("Elixir of the Mongoose", 3, 6));
 
 		GildedRose.updateQuality(goods);
 		
@@ -26,7 +26,7 @@ public class GildedRoseTest {
 
 	@Test
 	public void WithNormalItemQualityValueDecreaseByOneEachDay() {
-		createOneItemList(new Item("Conjured Mana Cake", 3, 6));
+		createOneItemList(new Item("Elixir of the Mongoose", 3, 6));
 		
 		GildedRose.updateQuality(goods);
 		
@@ -35,7 +35,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void WithNormalItemQualityValueDecreaseByTwoAfterSellInPasses() {
-		createOneItemList(new Item("Conjured Mana Cake", 1, 6));
+		createOneItemList(new Item("Elixir of the Mongoose", 1, 6));
 
 		GildedRose.updateQuality(goods);
 		GildedRose.updateQuality(goods);
@@ -44,7 +44,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void WithNormalItemQualityValueDoesNotGoNegative() {
-		createOneItemList(new Item("Conjured Mana Cake", 1, 1));
+		createOneItemList(new Item("Elixir of the Mongoose", 1, 1));
 
 		GildedRose.updateQuality(goods);
 		assertEquals(0,goods.get(0).getQuality());	
@@ -142,5 +142,13 @@ public class GildedRoseTest {
 
 		GildedRose.updateQuality(goods);
 		assertEquals(0,goods.get(0).getQuality());
+	}	
+
+	//@Test
+	public void ConjuredItemsQualityIncreasesByTwoEachDay() {
+		createOneItemList(new Item("Conjured Mana Cake", 3, 6));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(4,goods.get(0).getQuality());
 	}	
 }

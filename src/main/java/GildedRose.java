@@ -3,7 +3,9 @@ import java.util.List;
 
 
 public class GildedRose {
-
+	final static String AGED_BRIE = "Aged Brie";
+	final static String BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+	final static String SULFURAS = "Sulfuras, Hand of Ragnaros";
 
 	/**
 	 * @param args
@@ -30,14 +32,11 @@ public class GildedRose {
     {
         for (int i = 0; i < items.size(); i++)
         {
-            if ((!"Aged Brie".equals(items.get(i).getName())) && !"Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName())) 
+            if (regularDecrementingQualityItem(items.get(i))) 
             {
                 if (items.get(i).getQuality() > 0)
                 {
-                    if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName()))
-                    {
                         items.get(i).setQuality(items.get(i).getQuality() - 1);
-                    }
                 }
             }
             else
@@ -46,7 +45,7 @@ public class GildedRose {
                 {
                     items.get(i).setQuality(items.get(i).getQuality() + 1);
 
-                    if ("Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName()))
+                    if (BACKSTAGE_PASS.equals(items.get(i).getName()))
                     {
                         if (items.get(i).getSellIn() < 11)
                         {
@@ -67,20 +66,20 @@ public class GildedRose {
                 }
             }
 
-            if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName()))
+            if (!SULFURAS.equals(items.get(i).getName()))
             {
                 items.get(i).setSellIn(items.get(i).getSellIn() - 1);
             }
 
             if (items.get(i).getSellIn() < 0)
             {
-                if (!"Aged Brie".equals(items.get(i).getName()))
+                if (!AGED_BRIE.equals(items.get(i).getName()))
                 {
-                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName()))
+                    if (!BACKSTAGE_PASS.equals(items.get(i).getName()))
                     {
                         if (items.get(i).getQuality() > 0)
                         {
-                            if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName()))
+                            if (!SULFURAS.equals(items.get(i).getName()))
                             {
                                 items.get(i).setQuality(items.get(i).getQuality() - 1);
                             }
@@ -101,5 +100,13 @@ public class GildedRose {
             }
         }
     }
+
+
+
+	private static boolean regularDecrementingQualityItem(Item item) {
+		return (!AGED_BRIE.equals(item.getName()) && 
+				!BACKSTAGE_PASS.equals(item.getName()) &&
+				!SULFURAS.equals(item.getName()));
+	}
 
 }
