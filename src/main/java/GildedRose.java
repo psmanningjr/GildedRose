@@ -32,20 +32,28 @@ public class GildedRose {
 				if (AGED_BRIE.equals(item.getName())) {
 					incrementQuality(item);
 					decrementSellIn(item);
-				} else {
+				} else if (BACKSTAGE_PASS.equals(item.getName())) {
 					updateQuality(item);
 
 					decrementSellIn(item);
 
 					if (item.getSellIn() < 0) {
-							if (!BACKSTAGE_PASS.equals(item.getName())) {
-								if (item.getQuality() > 0) {
-									item.setQuality(item.getQuality() - 1);
-								}
-							} else {
-								item.setQuality(item.getQuality()
-										- item.getQuality());
+						if (!BACKSTAGE_PASS.equals(item.getName())) {
+							if (item.getQuality() > 0) {
+								item.setQuality(item.getQuality() - 1);
 							}
+						} else {
+							item.setQuality(item.getQuality()
+									- item.getQuality());
+						}
+					}
+				} else {
+					decrementQuality(item);
+					decrementSellIn(item);
+					if (item.getSellIn() < 0) {
+						if (item.getQuality() > 0) {
+							item.setQuality(item.getQuality() - 1);
+						}
 					}
 				}
 			}
@@ -89,9 +97,7 @@ public class GildedRose {
 	}
 
 	private static boolean regularDecrementingQualityItem(Item item) {
-		return (!AGED_BRIE.equals(item.getName())
-				&& !BACKSTAGE_PASS.equals(item.getName()) && !SULFURAS
-					.equals(item.getName()));
+		return (!BACKSTAGE_PASS.equals(item.getName()));
 	}
 
 }
