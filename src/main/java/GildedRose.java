@@ -35,10 +35,7 @@ public class GildedRose {
         {
             updateQuality(item);
 
-            if (!SULFURAS.equals(item.getName()))
-            {
-                item.setSellIn(item.getSellIn() - 1);
-            }
+            updateSellIn(item);
 
             if (item.getSellIn() < 0)
             {
@@ -69,6 +66,15 @@ public class GildedRose {
             }
         }
     }
+
+
+
+	private static void updateSellIn(Item item) {
+		if (!SULFURAS.equals(item.getName()))
+		{
+		    item.setSellIn(item.getSellIn() - 1);
+		}
+	}
 
 
 
