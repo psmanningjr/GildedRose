@@ -69,4 +69,24 @@ public class GildedRoseTest {
 		GildedRose.updateQuality(goods);
 		assertEquals(50,goods.get(0).getQuality());
 	}	
+	
+	@Test
+	public void SulfurasDoesNotChangeQuality() {
+		createOneItemList(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(80,goods.get(0).getQuality());
+		GildedRose.updateQuality(goods);
+		assertEquals(80,goods.get(0).getQuality());
+	}	
+	
+	@Test
+	public void SulfurasSellInDoesNotChange() {
+		createOneItemList(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(0,goods.get(0).getSellIn());
+		GildedRose.updateQuality(goods);
+		assertEquals(0,goods.get(0).getSellIn());
+	}	
 }
