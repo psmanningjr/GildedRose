@@ -29,24 +29,23 @@ public class GildedRose {
 	public static void updateQuality(List<Item> items) {
 		for (Item item : items) {
 			if (!SULFURAS.equals(item.getName())) {
-				updateQuality(item);
+				if (AGED_BRIE.equals(item.getName())) {
+					incrementQuality(item);
+					decrementSellIn(item);
+				} else {
+					updateQuality(item);
 
-				decrementSellIn(item);
+					decrementSellIn(item);
 
-				if (item.getSellIn() < 0) {
-					if (!AGED_BRIE.equals(item.getName())) {
-						if (!BACKSTAGE_PASS.equals(item.getName())) {
-							if (item.getQuality() > 0) {
-								item.setQuality(item.getQuality() - 1);
+					if (item.getSellIn() < 0) {
+							if (!BACKSTAGE_PASS.equals(item.getName())) {
+								if (item.getQuality() > 0) {
+									item.setQuality(item.getQuality() - 1);
+								}
+							} else {
+								item.setQuality(item.getQuality()
+										- item.getQuality());
 							}
-						} else {
-							item.setQuality(item.getQuality()
-									- item.getQuality());
-						}
-					} else {
-						if (item.getQuality() < MAX_QUALITY) {
-							item.setQuality(item.getQuality() + 1);
-						}
 					}
 				}
 			}
@@ -86,9 +85,9 @@ public class GildedRose {
 	private static void incrementQuality(Item item) {
 		if (item.getQuality() < MAX_QUALITY) {
 			item.setQuality(item.getQuality() + 1);
-		}		
+		}
 	}
-	
+
 	private static boolean regularDecrementingQualityItem(Item item) {
 		return (!AGED_BRIE.equals(item.getName())
 				&& !BACKSTAGE_PASS.equals(item.getName()) && !SULFURAS

@@ -60,6 +60,15 @@ public class GildedRoseTest {
 		assertEquals(1,goods.get(0).getQuality());
 	}	
 	
+	
+	@Test
+	public void AgedBrieIncreaseInQualityEvenAfterSellIn() {
+		createOneItemList(new Item("Aged Brie", 0, 10));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(11,goods.get(0).getQuality());
+	}	
+	
 	@Test
 	public void AgedBrieQualityDoesNotIncreasePastFifty() {
 		createOneItemList(new Item("Aged Brie", 2, 49));
