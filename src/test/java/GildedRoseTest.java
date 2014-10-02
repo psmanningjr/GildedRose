@@ -89,4 +89,58 @@ public class GildedRoseTest {
 		GildedRose.updateQuality(goods);
 		assertEquals(0,goods.get(0).getSellIn());
 	}	
+	
+	@Test
+	public void BackstagePassesQualityIncreaseByOneIfMoreConcertIsMoreThanTenDaysAway() {
+		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 12, 20));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(21,goods.get(0).getQuality());
+		GildedRose.updateQuality(goods);
+		assertEquals(22,goods.get(0).getQuality());
+		GildedRose.updateQuality(goods);
+		assertTrue(goods.get(0).getQuality() > 23);
+	}	
+		
+	@Test
+	public void BackstagePassesQualityIncreaseByTwoIfConcertIsTenDaysAway() {
+		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(22,goods.get(0).getQuality());
+		GildedRose.updateQuality(goods);
+		assertEquals(24,goods.get(0).getQuality());
+	}	
+	
+	@Test
+	public void BackstagePassesQualityIncreaseByOneIfConcertIsSixDaysAway() {
+		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 6, 20));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(22,goods.get(0).getQuality());
+	}	
+	
+	@Test
+	public void BackstagePassesQualityIncreaseByThreeIfConcertIsFiveDaysAway() {
+		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(23,goods.get(0).getQuality());
+	}	
+
+	@Test
+	public void BackstagePassesQualityIncreaseByThreeIfConcertIsFourDaysAway() {
+		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 4, 20));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(23,goods.get(0).getQuality());
+	}	
+
+	@Test
+	public void BackstagePassesQualityIsZeroAFterConcert() {
+		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20));
+
+		GildedRose.updateQuality(goods);
+		assertEquals(0,goods.get(0).getQuality());
+	}	
 }
