@@ -30,7 +30,7 @@ public class GildedRose {
 		for (Item item : items) {
 			if (!SULFURAS.equals(item.getName())) {
 				if (AGED_BRIE.equals(item.getName())) {
-					incrementQuality(item);
+					incrementQualityIfLessThanMaxQuality(item);
 					decrementSellIn(item);
 				} else if (BACKSTAGE_PASS.equals(item.getName())) {
 					changedQualityBasedOnDaysAwayFromConcert(item);
@@ -39,10 +39,10 @@ public class GildedRose {
 						item.setQuality(0);
 					}
 				} else {
-					decrementQuality(item);
+					decrementQualityIfGreaterThanZero(item);
 					decrementSellIn(item);
 					if (sellByDatePast(item)) {
-						decrementQuality(item);
+						decrementQualityIfGreaterThanZero(item);
 					}
 				}
 			}
@@ -54,12 +54,12 @@ public class GildedRose {
 	}
 	
 	private static void changedQualityBasedOnDaysAwayFromConcert(Item item) {
-		incrementQuality(item);
+		incrementQualityIfLessThanMaxQuality(item);
 		if (item.getSellIn() < 11) {
-			incrementQuality(item);
+			incrementQualityIfLessThanMaxQuality(item);
 		}
 		if (item.getSellIn() < 6) {
-			incrementQuality(item);
+			incrementQualityIfLessThanMaxQuality(item);
 		}
 	}
 
@@ -67,13 +67,13 @@ public class GildedRose {
 		item.setSellIn(item.getSellIn() - 1);
 	}
 
-	private static void decrementQuality(Item item) {
+	private static void decrementQualityIfGreaterThanZero(Item item) {
 		if (item.getQuality() > 0) {
 			item.setQuality(item.getQuality() - 1);
 		}
 	}
 
-	private static void incrementQuality(Item item) {
+	private static void incrementQualityIfLessThanMaxQuality(Item item) {
 		if (item.getQuality() < MAX_QUALITY) {
 			item.setQuality(item.getQuality() + 1);
 		}
