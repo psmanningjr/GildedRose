@@ -12,7 +12,7 @@ public class GildedRoseTest {
 	
 	private void createOneItemList(String name, int sellIn, int quality) {
 		goods = new ArrayList<UpdatingItem>();
-		goods.add(new UpdatingItem(name, sellIn, quality));
+		goods.add(UpdatingItemFactory.createUpdatingItem(name, sellIn, quality));
 	}
 
 	@Test
