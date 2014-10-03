@@ -153,8 +153,16 @@ public class GildedRoseTest {
 		assertEquals(0,goods.get(0).getQuality());
 	}	
 
+	@Test
+	public void BackstagePassesWithDifferentNameQualityIsZeroAFterConcert() {
+		createOneItemList("Backstage passes to a xyz concert", 0, 20);
+
+		GildedRose.updateQuality(goods);
+		assertEquals(0,goods.get(0).getQuality());
+	}	
+
 	//@Test
-	public void ConjuredItemsQualityIncreasesByTwoEachDay() {
+	public void ConjuredItemsQualityDecreasesByTwoEachDay() {
 		createOneItemList("Conjured Mana Cake", 3, 6);
 
 		GildedRose.updateQuality(goods);
