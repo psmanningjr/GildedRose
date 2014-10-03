@@ -162,8 +162,16 @@ public class GildedRoseTest {
 	}	
 
 	//@Test
-	public void ConjuredItemsQualityDecreasesByTwoEachDay() {
+	public void ConjuredItemQualityDecreasesByTwoEachDay() {
 		createOneItemList("Conjured Mana Cake", 3, 6);
+
+		GildedRose.updateQuality(goods);
+		assertEquals(4,goods.get(0).getQuality());
+	}	
+
+	//@Test
+	public void ConjuredItemWithDifferentNameQualityDecreasesByTwoEachDay() {
+		createOneItemList("Conjured Stuff", 3, 6);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(4,goods.get(0).getQuality());
