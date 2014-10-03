@@ -1,14 +1,15 @@
 public class UpdatingItemFactory {
 	public enum ItemTypes {
-		neverUpdating, alwaysIncreasingQuality, concertEvent, regular
+		neverUpdating, alwaysIncreasingQuality, concertEvent, conjured, regular
 	};
 
 	final static String AGED_BRIE = "Aged Brie";
 	final static String BACKSTAGE_PASS = "Backstage passes";
 	final static String SULFURAS = "Sulfuras";
-	final static String[] SPECIAL_ITEM_NAMES = { SULFURAS, AGED_BRIE, BACKSTAGE_PASS };
+	final static String CONJURED = "Conjured";
+	final static String[] SPECIAL_ITEM_NAMES = { SULFURAS, AGED_BRIE, BACKSTAGE_PASS, CONJURED };
 	final static ItemTypes[] SPECIAL_ITEM_TYPES = { ItemTypes.neverUpdating,
-			ItemTypes.alwaysIncreasingQuality, ItemTypes.concertEvent };
+			ItemTypes.alwaysIncreasingQuality, ItemTypes.concertEvent, ItemTypes.conjured};
 
 	static UpdatingItem create(String name, int sellIn, int quality) {
 		UpdatingItem updatingItem;
@@ -23,6 +24,9 @@ public class UpdatingItemFactory {
 			break;
 		case concertEvent:
 			updatingItem = new ConcertEventUpdatingItem(name, sellIn, quality);
+			break;
+		case conjured:
+			updatingItem = new DoubleSpeedDegradingUpdatingItem(name, sellIn, quality);
 			break;
 		case regular:
 		default:

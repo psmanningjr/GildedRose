@@ -179,7 +179,7 @@ public class GildedRoseTest {
 		assertEquals(0,goods.get(0).getQuality());
 	}	
 
-	//@Test
+	@Test
 	public void ConjuredItemQualityDecreasesByTwoEachDay() {
 		createOneItemList("Conjured Mana Cake", 3, 6);
 
@@ -187,7 +187,7 @@ public class GildedRoseTest {
 		assertEquals(4,goods.get(0).getQuality());
 	}	
 
-	//@Test
+	@Test
 	public void ConjuredItemWithDifferentEndingNameQualityDecreasesByTwoEachDay() {
 		createOneItemList("Conjured Stuff", 3, 6);
 
