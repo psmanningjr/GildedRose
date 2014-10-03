@@ -12,22 +12,26 @@ public class GildedRose {
 	 */
 	public static void main(String[] args) {
 
-		List<Item> items = null;
+		List<UpdatingItem> items = null;
 		System.out.println("OMGHAI!");
 
-		items = new ArrayList<Item>();
-		items.add(new Item("+5 Dexterity Vest", 10, 20));
-		items.add(new Item("Aged Brie", 2, 0));
-		items.add(new Item("Elixir of the Mongoose", 5, 7));
-		items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
-		items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20));
-		items.add(new Item("Conjured Mana Cake", 3, 6));
+		items = new ArrayList<UpdatingItem>();
+		items.add(UpdatingItemFactory.createUpdatingItem("+5 Dexterity Vest", 10, 20));
+		items.add(UpdatingItemFactory.createUpdatingItem("Aged Brie", 2, 0));
+		items.add(UpdatingItemFactory.createUpdatingItem("Elixir of the Mongoose", 5, 7));
+		items.add(UpdatingItemFactory.createUpdatingItem("Sulfuras, Hand of Ragnaros", 0, 80));
+		items.add(UpdatingItemFactory.createUpdatingItem("Backstage passes to a TAFKAL80ETC concert", 15, 20));
+		items.add(UpdatingItemFactory.createUpdatingItem("Conjured Mana Cake", 3, 6));
 
 		updateQuality(items);
 	}
 
-	public static void updateQuality(List<Item> items) {
-		for (Item item : items) {
+	public static void updateQuality(List<UpdatingItem> updatingItems) {
+		for (UpdatingItem item : updatingItems) {
+			
+//			UpdatingItem myItem = UpdatingItemFactory.createUpdatingItem(item.getName(),
+//																		 item.getSellIn(),
+//																		 item.getQuality());
 			switch (item.getName()) {
 			case SULFURAS:
 				break;
@@ -38,7 +42,8 @@ public class GildedRose {
 				processBackStagePass(item);
 				break;
 			default:
-				processRegularItem(item);
+				item.update();
+//				processRegularItem(item);
 				break;
 			}				
 		}

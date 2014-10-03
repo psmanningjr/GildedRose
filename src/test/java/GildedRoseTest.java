@@ -8,16 +8,16 @@ import org.junit.Test;
 
 public class GildedRoseTest {
 	
-	List<Item> goods;
+	List<UpdatingItem> goods;
 	
-	private void createOneItemList(Item item) {
-		goods = new ArrayList<Item>();
-		goods.add(item);
+	private void createOneItemList(String name, int sellIn, int quality) {
+		goods = new ArrayList<UpdatingItem>();
+		goods.add(new UpdatingItem(name, sellIn, quality));
 	}
 
 	@Test
 	public void WithNormalItemSellInValueDecreaseByOneEachDay() {
-		createOneItemList(new Item("Elixir of the Mongoose", 3, 6));
+		createOneItemList("Elixir of the Mongoose", 3, 6);
 
 		GildedRose.updateQuality(goods);
 		
@@ -26,7 +26,7 @@ public class GildedRoseTest {
 
 	@Test
 	public void WithNormalItemQualityValueDecreaseByOneEachDay() {
-		createOneItemList(new Item("Elixir of the Mongoose", 3, 6));
+		createOneItemList("Elixir of the Mongoose", 3, 6);
 		
 		GildedRose.updateQuality(goods);
 		
@@ -35,7 +35,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void WithNormalItemQualityValueDecreaseByTwoAfterSellInPasses() {
-		createOneItemList(new Item("Elixir of the Mongoose", 1, 6));
+		createOneItemList("Elixir of the Mongoose", 1, 6);
 
 		GildedRose.updateQuality(goods);
 		GildedRose.updateQuality(goods);
@@ -44,7 +44,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void WithNormalItemQualityValueDoesNotGoNegative() {
-		createOneItemList(new Item("Elixir of the Mongoose", 1, 1));
+		createOneItemList("Elixir of the Mongoose", 1, 1);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(0,goods.get(0).getQuality());	
@@ -54,7 +54,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void AgedBrieIncreaseInQualityByOneEachDay() {
-		createOneItemList(new Item("Aged Brie", 2, 0));
+		createOneItemList("Aged Brie", 2, 0);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(1,goods.get(0).getQuality());
@@ -63,7 +63,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void AgedBrieIncreaseInQualityEvenAfterSellIn() {
-		createOneItemList(new Item("Aged Brie", 0, 10));
+		createOneItemList("Aged Brie", 0, 10);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(11,goods.get(0).getQuality());
@@ -71,7 +71,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void AgedBrieQualityDoesNotIncreasePastFifty() {
-		createOneItemList(new Item("Aged Brie", 2, 49));
+		createOneItemList("Aged Brie", 2, 49);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(50,goods.get(0).getQuality());
@@ -81,7 +81,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void SulfurasDoesNotChangeQuality() {
-		createOneItemList(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+		createOneItemList("Sulfuras, Hand of Ragnaros", 0, 80);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(80,goods.get(0).getQuality());
@@ -91,7 +91,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void SulfurasSellInDoesNotChange() {
-		createOneItemList(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+		createOneItemList("Sulfuras, Hand of Ragnaros", 0, 80);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(0,goods.get(0).getSellIn());
@@ -101,7 +101,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void BackstagePassesQualityIncreaseByOneIfMoreConcertIsMoreThanTenDaysAway() {
-		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 12, 20));
+		createOneItemList("Backstage passes to a TAFKAL80ETC concert", 12, 20);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(21,goods.get(0).getQuality());
@@ -113,7 +113,7 @@ public class GildedRoseTest {
 		
 	@Test
 	public void BackstagePassesQualityIncreaseByTwoIfConcertIsTenDaysAway() {
-		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 10, 20));
+		createOneItemList("Backstage passes to a TAFKAL80ETC concert", 10, 20);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(22,goods.get(0).getQuality());
@@ -123,7 +123,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void BackstagePassesQualityIncreaseByOneIfConcertIsSixDaysAway() {
-		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 6, 20));
+		createOneItemList("Backstage passes to a TAFKAL80ETC concert", 6, 20);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(22,goods.get(0).getQuality());
@@ -131,7 +131,7 @@ public class GildedRoseTest {
 	
 	@Test
 	public void BackstagePassesQualityIncreaseByThreeIfConcertIsFiveDaysAway() {
-		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 5, 20));
+		createOneItemList("Backstage passes to a TAFKAL80ETC concert", 5, 20);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(23,goods.get(0).getQuality());
@@ -139,7 +139,7 @@ public class GildedRoseTest {
 
 	@Test
 	public void BackstagePassesQualityIncreaseByThreeIfConcertIsFourDaysAway() {
-		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 4, 20));
+		createOneItemList("Backstage passes to a TAFKAL80ETC concert", 4, 20);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(23,goods.get(0).getQuality());
@@ -147,7 +147,7 @@ public class GildedRoseTest {
 
 	@Test
 	public void BackstagePassesQualityIsZeroAFterConcert() {
-		createOneItemList(new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20));
+		createOneItemList("Backstage passes to a TAFKAL80ETC concert", 0, 20);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(0,goods.get(0).getQuality());
@@ -155,7 +155,7 @@ public class GildedRoseTest {
 
 	//@Test
 	public void ConjuredItemsQualityIncreasesByTwoEachDay() {
-		createOneItemList(new Item("Conjured Mana Cake", 3, 6));
+		createOneItemList("Conjured Mana Cake", 3, 6);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(4,goods.get(0).getQuality());
