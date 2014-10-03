@@ -28,31 +28,47 @@ public class GildedRose {
 
 	public static void updateQuality(List<Item> items) {
 		for (Item item : items) {
-			if (!SULFURAS.equals(item.getName())) {
-				if (AGED_BRIE.equals(item.getName())) {
-					incrementQualityIfLessThanMaxQuality(item);
-					decrementSellIn(item);
-				} else if (BACKSTAGE_PASS.equals(item.getName())) {
-					changedQualityBasedOnDaysAwayFromConcert(item);
-					decrementSellIn(item);
-					if (sellByDatePast(item)) {
-						item.setQuality(0);
-					}
-				} else {
-					decrementQualityIfGreaterThanZero(item);
-					decrementSellIn(item);
-					if (sellByDatePast(item)) {
-						decrementQualityIfGreaterThanZero(item);
-					}
-				}
-			}
+			switch (item.getName()) {
+			case SULFURAS:
+				break;
+			case AGED_BRIE:
+				processAgedBrie(item);
+				break;
+			case BACKSTAGE_PASS:
+				processBackStagePass(item);
+				break;
+			default:
+				processRegularItem(item);
+				break;
+			}				
+		}
+	}
+
+	private static void processAgedBrie(Item item) {
+		incrementQualityIfLessThanMaxQuality(item);
+		decrementSellIn(item);
+	}
+
+	private static void processBackStagePass(Item item) {
+		changedQualityBasedOnDaysAwayFromConcert(item);
+		decrementSellIn(item);
+		if (sellByDatePast(item)) {
+			item.setQuality(0);
+		}
+	}
+
+	private static void processRegularItem(Item item) {
+		decrementQualityIfGreaterThanZero(item);
+		decrementSellIn(item);
+		if (sellByDatePast(item)) {
+			decrementQualityIfGreaterThanZero(item);
 		}
 	}
 
 	private static boolean sellByDatePast(Item item) {
 		return (item.getSellIn() < 0);
 	}
-	
+
 	private static void changedQualityBasedOnDaysAwayFromConcert(Item item) {
 		incrementQualityIfLessThanMaxQuality(item);
 		if (item.getSellIn() < 11) {
