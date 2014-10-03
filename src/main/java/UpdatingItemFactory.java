@@ -5,7 +5,7 @@ public class UpdatingItemFactory {
 
 	final static String AGED_BRIE = "Aged Brie";
 	final static String BACKSTAGE_PASS = "Backstage passes";
-	final static String SULFURAS = "Sulfuras, Hand of Ragnaros";
+	final static String SULFURAS = "Sulfuras";
 	final static String[] SPECIAL_ITEM_NAMES = { SULFURAS, AGED_BRIE, BACKSTAGE_PASS };
 	final static ItemTypes[] SPECIAL_ITEM_TYPES = { ItemTypes.neverUpdating,
 			ItemTypes.alwaysIncreasingQuality, ItemTypes.concertEvent };

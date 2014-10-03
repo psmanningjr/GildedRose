@@ -60,10 +60,17 @@ public class GildedRoseTest {
 		assertEquals(1,goods.get(0).getQuality());
 	}	
 	
-	
 	@Test
 	public void AgedBrieIncreaseInQualityEvenAfterSellIn() {
 		createOneItemList("Aged Brie", 0, 10);
+
+		GildedRose.updateQuality(goods);
+		assertEquals(11,goods.get(0).getQuality());
+	}	
+	
+	@Test
+	public void AgedBrieWithDifferentEndingNameIncreaseInQualityEvenAfterSellIn() {
+		createOneItemList("Aged Brie extra", 0, 10);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(11,goods.get(0).getQuality());
@@ -82,6 +89,17 @@ public class GildedRoseTest {
 	@Test
 	public void SulfurasDoesNotChangeQuality() {
 		createOneItemList("Sulfuras, Hand of Ragnaros", 0, 80);
+
+		GildedRose.updateQuality(goods);
+		assertEquals(80,goods.get(0).getQuality());
+		GildedRose.updateQuality(goods);
+		assertEquals(80,goods.get(0).getQuality());
+	}	
+	
+	
+	@Test
+	public void SulfurasWithDifferentEndingNameDoesNotChangeQuality() {
+		createOneItemList("Sulfuras, this is good", 0, 80);
 
 		GildedRose.updateQuality(goods);
 		assertEquals(80,goods.get(0).getQuality());
@@ -154,7 +172,7 @@ public class GildedRoseTest {
 	}	
 
 	@Test
-	public void BackstagePassesWithDifferentNameQualityIsZeroAFterConcert() {
+	public void BackstagePassesWithDifferentEndingNameQualityIsZeroAFterConcert() {
 		createOneItemList("Backstage passes to a xyz concert", 0, 20);
 
 		GildedRose.updateQuality(goods);
@@ -170,7 +188,7 @@ public class GildedRoseTest {
 	}	
 
 	//@Test
-	public void ConjuredItemWithDifferentNameQualityDecreasesByTwoEachDay() {
+	public void ConjuredItemWithDifferentEndingNameQualityDecreasesByTwoEachDay() {
 		createOneItemList("Conjured Stuff", 3, 6);
 
 		GildedRose.updateQuality(goods);
